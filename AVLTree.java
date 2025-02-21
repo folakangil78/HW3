@@ -1,6 +1,6 @@
 
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Francis Olakangil / Section 001 ***
  *
  * This java file is a Java object implementing simple AVL Tree.
  * You are to complete the deleteElement method.
@@ -361,6 +361,51 @@ class LUC_AVLTree {
          * code for each. You can also look at the method InsertElement, as it has do
          * do many of the same things as this method.
          */
+
+
+        if (node == null) {
+            return null; 
+        }
+
+        // standard bst delete
+        if (value < node.value) {
+            node.leftChild = deleteElement(value, node.leftChild);
+        } else if (value > node.value) {
+            node.rightChild = deleteElement(value, node.rightChild);
+        } else {
+            // node with one child or no child
+            if (node.leftChild == null) {
+                return node.rightChild;
+            } else if (node.rightChild == null) {
+                return node.leftChild;
+            }
+
+            // node with two childs, needs inorder successor of smallest on right subtree
+            Node successor = minValueNode(node.rightChild);
+            node.value = successor.value;
+            node.rightChild = deleteElement(successor.value, node.rightChild);
+        }
+
+        // updating height of current node
+        node.height = 1 + Math.max(getHeight(node.leftChild), getHeight(node.rightChild));
+
+        int balance = getBalanceFactor(node); // start wit balance factor
+
+        if (balance > 1) { // left heavy balancing required
+            if (getBalanceFactor(node.leftChild) >= 0) {
+                return LLRotation(node); // covers for left left rot. case
+            } else {
+                node.leftChild = RRRotation(node.leftChild);
+                return LLRotation(node); // covers for left right rot. case
+            }
+        } else if (balance < -1) { // right heavy balancing required
+            if (getBalanceFactor(node.rightChild) <= 0) {
+                return RRRotation(node); // covers for right right rot. case
+            } else {
+                node.rightChild = LLRotation(node.rightChild);
+                return RRRotation(node); // covers for right left rot. case
+            }
+        }
 
         return node;
     }

@@ -7,7 +7,7 @@
  * TreeProblems.java. Specifically, you will be using the TreeSet and TreeMap Java
  * Collection Framework library.
  *
- * This main routine is a driver  for testing the methods that you wrote within
+ * This main routine is a driver for testing the methods that you wrote within
  * the files 'AVLTree.java' and 'TreeProblems.java'. Your work will need to pass all
  * these tests for 100%
  *

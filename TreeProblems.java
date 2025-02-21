@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Francis Olakangil / Section 001 ***
  *
  * This java file contains several simple tree problems that need to be
  * codified. These routines  must use the TreeMap and TreeSet library
@@ -14,7 +14,7 @@ public class TreeProblems {
   /**
    * Method different()
    *
-   * Given two TreeSets of integers, return a TreeSet containing all elements 
+   * Given two TreeSets of integers, return a TreeSet containing all elements
    * that are NOT in both sets. In other words, return a TreeSet of all the
    * elements that are in one set but not the other.
    */
@@ -27,7 +27,25 @@ public class TreeProblems {
     // *several* lines of code. Hint: create two temporary TreeSets and utilize the
     // methods retainAll(), addAll(), and removeAll(). But in the end, get something to work.
 
-    return setA;
+    // creating copies of A and B params to change
+    Set<Integer> onlyInA = new TreeSet<>(setA);
+    Set<Integer> onlyInB = new TreeSet<>(setB);
+
+    // storing common elements
+    Set<Integer> common = new TreeSet<>(setA);
+    common.retainAll(setB);
+
+    // removing common elements from A and B sets
+    onlyInA.removeAll(common);
+    onlyInB.removeAll(common);
+
+    // combining remaining unique elements
+    onlyInA.addAll(onlyInB);
+
+    // creates copies to change, finds common elems using retainAll method
+    // removes common elements from either set
+    // combines remaining unique elems
+    return onlyInA;
   }
 
 
@@ -39,10 +57,20 @@ public class TreeProblems {
    */
 
   public static void removeEven(Map<Integer, String> treeMap) {
+    Set<Integer> evenKeys = new HashSet<>();
+    // storing even keys
+    for (Integer key : treeMap.keySet()) {
+      if (key % 2 == 0) {
+        evenKeys.add(key);
+      }
+    }
 
-    // INSERT CODE HERE.
-
-    return;
+    // removing even keys
+    for (Integer key : evenKeys) {
+      treeMap.remove(key);
+    }
+    // collects even keys first to avoid modifying map while iterating over
+    // iterating over stored even keys and removing from given treeMap param
   }
 
 
@@ -54,11 +82,8 @@ public class TreeProblems {
    */
 
   public boolean treesEqual(Map<Integer, String> tree1,Map<Integer, String> tree2 ) {
-
-    // INSERT CODE HERE
-
-    return false;
-
+    return tree1.equals(tree2); // only need to check if both maps identical
+    // equals fxn directly compares
   }
 
 } // end treeProblems class
